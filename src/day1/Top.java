@@ -16,44 +16,27 @@ public class Top {
 		int[] tops = new int[N];
 		int[] answers = new int[N];
 		
+		
 		for(int i=0; i<N; ++i){
 			tops[i] = Integer.parseInt(st.nextToken());
 		}
 		
 		Stack<Integer> valStack = new Stack<>();
 		Stack<Integer> idxStack = new Stack<>();
-		int sVal = tops[N-1];
-		int sIdx = N;
-		for(int i=N-2; i>=0; --i){
-			int rVal = tops[i];
-			int rIdx = i+1;
-			if(sVal <= rVal){
-				answers[sIdx-1] = i+1;
-				while(!valStack.isEmpty()){
-					sVal = valStack.pop();
-					sIdx = idxStack.pop();
-					if(sVal <= rVal){
-						answers[sIdx-1] = i+1;
-					}
-				}
-				sVal = rVal;
-				sIdx = rIdx;			}
-			else{
-				valStack.push(rVal);
-				idxStack.push(rIdx);
+
+		for(int i=N-1; i>=0; --i){
+			while(!valStack.isEmpty() && tops[i] >= valStack.peek()){
+				valStack.pop();
+				answers[idxStack.pop()] = i+1;
 			}
-		}
-		
-		while(!idxStack.isEmpty()){
-			answers[idxStack.pop()-1] = 0;
+			valStack.push(tops[i]);
+			idxStack.push(i);
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		
 		for(int i=0; i<N; ++i){
 			sb.append(answers[i]).append(" ");
 		}
-		
 		System.out.println(sb.toString().trim());
 		
 		br.close();
