@@ -16,16 +16,19 @@ public class Oasis {
 		}
 		
 		Stack<Integer> stack = new Stack<>();
+		
 		for(int i=0; i<N; ++i){
 			if(!stack.isEmpty()){
-				if(line[i] >= stack.peek()){
-					answer[i] = stack.size();
-					while(!stack.isEmpty() && stack.peek()<line[i]){
-						stack.pop();
-					}
+				int count = 0;
+				while(!stack.isEmpty() && stack.peek()<line[i]){
+					stack.pop();
+					count++;
+				}
+				if(!stack.isEmpty()){
+					answer[i] = ++count;
 				}
 				else{
-					answer[i]++;
+					answer[i] = count;
 				}
 			}
 			stack.push(line[i]);
