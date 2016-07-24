@@ -20,28 +20,32 @@ public class Top {
 			tops[i] = Integer.parseInt(st.nextToken());
 		}
 		
-		Stack<TopData> stack = new Stack<>();
-		TopData send = new TopData(N, tops[N-1]);
+		Stack<Integer> valStack = new Stack<>();
+		Stack<Integer> idxStack = new Stack<>();
+		int sVal = tops[N-1];
+		int sIdx = N;
 		for(int i=N-2; i>=0; --i){
-			TopData receive = new TopData(i+1, tops[i]);
-			if(send.height <= receive.height){
-				answers[send.index-1] = i+1;
-				while(!stack.isEmpty()){
-					send = stack.pop();
-					if(send.height <= receive.height){
-						answers[send.index-1] = i+1;
+			int rVal = tops[i];
+			int rIdx = i+1;
+			if(sVal <= rVal){
+				answers[sIdx-1] = i+1;
+				while(!valStack.isEmpty()){
+					sVal = valStack.pop();
+					sIdx = idxStack.pop();
+					if(sVal <= rVal){
+						answers[sIdx-1] = i+1;
 					}
 				}
-				send = receive;
-			}
+				sVal = rVal;
+				sIdx = rIdx;			}
 			else{
-				stack.push(receive);
+				valStack.push(rVal);
+				idxStack.push(rIdx);
 			}
 		}
 		
-		while(!stack.isEmpty()){
-			TopData temp = stack.pop();
-			answers[temp.index-1] = 0;
+		while(!idxStack.isEmpty()){
+			answers[idxStack.pop()-1] = 0;
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -53,15 +57,5 @@ public class Top {
 		System.out.println(sb.toString().trim());
 		
 		br.close();
-	}
-	public static class TopData{
-		int index = Integer.MIN_VALUE;
-		int height = Integer.MIN_VALUE;
-		
-		public TopData(int index, int height) {
-			this.index = index;
-			this.height = height;
-		}
-		
 	}
 }
