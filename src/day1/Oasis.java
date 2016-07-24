@@ -9,34 +9,43 @@ public class Oasis {
 		int N = sc.nextInt();
 
 		int[] line = new int[N];
-		int[] answer = new int[N];
+		long result = 0;
 		
 		for(int i=0; i<N; ++i){
 			line[i] = sc.nextInt();
 		}
 		
 		Stack<Integer> stack = new Stack<>();
+		Stack<Integer> wStack = new Stack<>();
 		
 		for(int i=0; i<N; ++i){
+			int weight = 1;
 			if(!stack.isEmpty()){
 				int count = 0;
 				while(!stack.isEmpty() && stack.peek()<line[i]){
 					stack.pop();
+					wStack.pop();
 					count++;
 				}
 				if(!stack.isEmpty()){
-					answer[i] = ++count;
+					if(line[i] == stack.peek()) {
+						weight = wStack.peek()+1;
+						count += wStack.peek();
+						
+						if(stack.size() > wStack.peek()) {
+							count ++;
+						}
+					}
+					else {
+						count ++;
+					}
 				}
-				else{
-					answer[i] = count;
-				}
+				result += count;
 			}
 			stack.push(line[i]);
+			wStack.push(weight);
 		}
-		int result = 0;
-		for(int i=0; i<N; ++i){
-			result += answer[i];
-		}
+		
 		System.out.println(result);
 		
 		sc.close();
