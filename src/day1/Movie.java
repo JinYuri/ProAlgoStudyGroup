@@ -16,9 +16,16 @@ public class Movie {
 			int N = Integer.parseInt(st.nextToken());
 			int M = Integer.parseInt(st.nextToken());
 
-			array = new int[N+1];
-			for(int i=1; i<=N; ++i){
-				update(i, i);
+			array = new int[N+M+1];
+
+			int[] indexArr = new int[N];
+			for(int i=1; i<=M; ++i){
+				update(i, 0);
+				indexArr[i-1] = i;
+				
+			}
+			for(int i=M+1; i<=N+M; ++i){
+				update(i, 1);
 			}
 			
 			st = new StringTokenizer(br.readLine());
@@ -26,13 +33,16 @@ public class Movie {
 			
 			for(int i=0; i<M; ++i){
 				int temp = Integer.parseInt(st.nextToken());
-				answer[i] = rsq(1, temp);
-				update(1, temp);
+				answer[i] = rsq(M-i+1, indexArr[temp-1]+M);
+				update(indexArr[temp-1]+M, 0);
+				update(M-i, 1);
+				indexArr[temp-1] = M-i;
 			}
 			
 			StringBuilder sb = new StringBuilder();
 			for(int i=0; i<M; ++i){
 				sb.append(answer[i]).append(" ");
+				
 			}
 			
 			System.out.println(sb.toString().trim());
@@ -42,7 +52,8 @@ public class Movie {
 		br.close();
 	}
 	
-    public static int rsq(int ind, int i) {
+	public static int rsq(int ind) {
+        assert ind > 0;
         int sum = 0;
         while (ind > 0) {
             sum += array[ind];
@@ -50,6 +61,10 @@ public class Movie {
         }
 
         return sum;
+    }
+
+    public static int rsq(int a, int b) {
+        return rsq(b) - rsq(a - 1);
     }
     public static void update(int ind, int value) {
         while (ind < array.length) {
