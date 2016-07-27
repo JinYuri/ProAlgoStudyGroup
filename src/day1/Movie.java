@@ -15,17 +15,21 @@ public class Movie {
 			st = new StringTokenizer(br.readLine());
 			int N = Integer.parseInt(st.nextToken());
 			int M = Integer.parseInt(st.nextToken());
+			
+			int height = (int)(Math.ceil(Math.log(N+M) /  Math.log(2)));
+	        int maxsize = (int) Math.pow(2, height) + 1;
 
-			array = new int[N+M+1];
+
+	        array = new int[maxsize];
 
 			int[] indexArr = new int[N];
 			for(int i=1; i<=M; ++i){
 				update(i, 0);
-				indexArr[i-1] = M+i;
 				
 			}
 			for(int i=M+1; i<=N+M; ++i){
 				update(i, 1);
+				indexArr[i-M-1] = i;
 			}
 			
 			st = new StringTokenizer(br.readLine());
