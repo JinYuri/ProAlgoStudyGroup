@@ -17,11 +17,18 @@ public class Paint {
 		Queue<Integer> woods = new LinkedList<>();
 		
 		st = new StringTokenizer(br.readLine());
-		int rest = 0;
-		int count = 0;
+		int[] rest = new int[N];
+		int count = N/X;
+		
+		if(N%X>0){
+			count+=1;
+		}
 		
 		for(int i=0; i<N; ++i){
 			woods.offer(Integer.parseInt(st.nextToken()));
+		}
+		
+		while(!woods.isEmpty()){
 		}
 		
 		br.close();
