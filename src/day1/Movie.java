@@ -21,7 +21,7 @@ public class Movie {
 			int[] indexArr = new int[N];
 			for(int i=1; i<=M; ++i){
 				update(i, 0);
-				indexArr[i-1] = i;
+				indexArr[i-1] = M+i;
 				
 			}
 			for(int i=M+1; i<=N+M; ++i){
@@ -33,8 +33,8 @@ public class Movie {
 			
 			for(int i=0; i<M; ++i){
 				int temp = Integer.parseInt(st.nextToken());
-				answer[i] = rsq(M-i+1, indexArr[temp-1]+M-1);
-				update(indexArr[temp-1]+M-1, 0);
+				answer[i] = rsq(M-i+1, indexArr[temp-1]-1);
+				update(indexArr[temp-1], -1);
 				update(M-i, 1);
 				indexArr[temp-1] = M-i;
 			}
