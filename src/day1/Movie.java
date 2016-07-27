@@ -33,8 +33,8 @@ public class Movie {
 			
 			for(int i=0; i<M; ++i){
 				int temp = Integer.parseInt(st.nextToken());
-				answer[i] = rsq(M-i+1, indexArr[temp-1]+M);
-				update(indexArr[temp-1]+M, 0);
+				answer[i] = rsq(M-i+1, indexArr[temp-1]+M-1);
+				update(indexArr[temp-1]+M-1, 0);
 				update(M-i, 1);
 				indexArr[temp-1] = M-i;
 			}
@@ -53,7 +53,6 @@ public class Movie {
 	}
 	
 	public static int rsq(int ind) {
-        assert ind > 0;
         int sum = 0;
         while (ind > 0) {
             sum += array[ind];
