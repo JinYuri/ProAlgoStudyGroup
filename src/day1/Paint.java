@@ -3,32 +3,27 @@ package day1;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayDeque;
 import java.util.StringTokenizer;
 
 public class Paint {
+	private static ArrayDeque<Integer> woods = new ArrayDeque<>();
+	private static int X = 0;
+	private static int N = 0;
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		int N = Integer.parseInt(st.nextToken());
-		int X = Integer.parseInt(st.nextToken());
+		N = Integer.parseInt(st.nextToken());
+		X = Integer.parseInt(st.nextToken());
 		
-		Queue<Integer> woods = new LinkedList<>();
 		
 		st = new StringTokenizer(br.readLine());
-		int[] rest = new int[N];
-		int count = N/X;
-		
-		if(N%X>0){
-			count+=1;
-		}
-		
+		int count = 0;
+		int min = Integer.MAX_VALUE;
 		for(int i=0; i<N; ++i){
-			woods.offer(Integer.parseInt(st.nextToken()));
-		}
-		
-		while(!woods.isEmpty()){
+			int temp = Integer.parseInt(st.nextToken());
+			woods.add(temp);
+			min = Math.min(min, temp);
 		}
 		
 		br.close();
