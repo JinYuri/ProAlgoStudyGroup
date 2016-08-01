@@ -8,36 +8,49 @@ import java.util.StringTokenizer;
 public class Long {
 	private static int N = 0;
 	private static int[] NUMS = null;
-	private static int[] ANSWER = null;
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
+
 		N = Integer.parseInt(br.readLine());
-		NUMS = new int[N+1];
-		
+		NUMS = new int[N];
+
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		NUMS[0] = Integer.MAX_VALUE;
-		for(int i=1; i<=N; ++i){
+		for (int i = 0; i < N; ++i) {
 			NUMS[i] = Integer.parseInt(st.nextToken());
 		}
-		System.out.println(getMaxDist(0, 1));
+		System.out.println(getMaxDist(N));
 		br.close();
 	}
-	
-	private static int getMaxDist(int std, int tmp){
-		int result = 0;
-		
-		if(tmp == N+1){
-			result = 0;
+
+	private static int getMaxDist(int size) {
+		int[] answer = new int[size];
+		int len = 1;
+		for (int i = 1; i < size; i++) {
+			if (NUMS[i] < answer[0])
+				answer[0] = NUMS[i];
+			else if (NUMS[i] > answer[len - 1])
+				answer[len++] = NUMS[i];
+			else
+				answer[getIdx(answer, -1, len - 1, NUMS[i])] = NUMS[i];
 		}
-		else {
-			if(NUMS[std] < NUMS[tmp]){
-				result = Math.max(getMaxDist(tmp, tmp+1)+1, getMaxDist(std, tmp+1));
-			}else{
-				result = Math.max(getMaxDist(tmp, tmp+1), getMaxDist(std, tmp+1));
-			}
-		}
-		
-		return result;
+		return len;
+	}
+
+	private static int getIdx(int[] answer, int l, int r, int key) {
+		while (r - l > 1)
+        {
+            int m = l + (r - l)/2;
+            if (answer[m]>=key)
+                r = m;
+            else
+                l = m;
+        }
+ 
+        return r;
 	}
 }
+// 7
+// 10 100 120 20 30 40 50
+
+//http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
