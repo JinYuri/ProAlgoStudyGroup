@@ -32,28 +32,29 @@ public class Dijkstra {
 			int v = Integer.parseInt(st.nextToken())-1;
 			int w = Integer.parseInt(st.nextToken());
 			
-			map[u][v] = map[v][u] = Math.min(map[u][v], w);
+			map[u][v] = Math.min(map[u][v], w);
 		}
 		
 	    dist = new int[V];
-        Arrays.fill(dist, Integer.MAX_VALUE);
+	    Arrays.fill(dist, Integer.MAX_VALUE);
 	    
 	    visited = new boolean[V];
-        Arrays.fill(visited, false);
+	    Arrays.fill(visited, false);
 	    
-        dist[S-1] = 0;
-	    shortestPath(S-1, V-1);
+    	dist[S-1] = 0;
+    	shortestPath(S-1);
 	    
+        StringBuilder sb = new StringBuilder();
 	    for(int d : dist){
-	    	if(d == Integer.MAX_VALUE) System.out.println("INF");
-	    	else System.out.println(d);
+	    	if(d == Integer.MAX_VALUE) sb.append("INF").append("\n");
+	    	else sb.append(d).append("\n");
 	    }
-	    
+	    System.out.println(sb.toString());
 		br.close();
 	}
-	public static int shortestPath(int start, int end){
-        if(start == end){
-            return dist[end];
+	public static int shortestPath(int start){
+        if(start >= V){
+        	return 0;
         }
         visited[start] = true;
         int min=Integer.MAX_VALUE;
@@ -63,14 +64,14 @@ public class Dijkstra {
                 if(dist[i] > dist[start] + map[start][i]){
                     dist[i] = dist[start] + map[start][i];
                 }
-                if(min==Integer.MAX_VALUE || dist[min] > dist[i] && i != start){
+                if(min==Integer.MAX_VALUE || dist[min] > dist[i]){
                     min = i;
                 }
                 
             }
             
         }
-        shortestPath(min, end);
+        shortestPath(min);
         
         return 0;
 	}
