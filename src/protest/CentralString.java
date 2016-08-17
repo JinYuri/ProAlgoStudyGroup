@@ -3,6 +3,10 @@ package protest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import day4.PhoneNumberBook.Node;
 
 public class CentralString {
 	public static void main(String[] args) throws IOException {
@@ -13,9 +17,39 @@ public class CentralString {
 			String A = br.readLine();
 			String B = br.readLine();
 			String C = br.readLine();
+			
+			Tree tree = new Tree();
+			tree.add(A);
+			tree.add(B);
+			tree.add(C);
+			
 		}
 		
+		
 		br.close();
+	}
+	
+	public static class Tree{
+		Node root = null;
+		public Tree(){
+			root = new Node('r');
+		}
+		public void add(String val){
+			Node prev = root;
+			for(char c : val.toCharArray()){
+				if(!prev.children.containsKey(c)){
+					prev.children.put(c, new Node(c));
+				}
+				prev = prev.children.get(c);
+			}
+		}
+	}
+	public static class Node{
+		char val;
+		Map<Character, Node> children = new HashMap<>();
+		public Node(char val){
+			this.val = val;
+		}
 	}
 }
 
