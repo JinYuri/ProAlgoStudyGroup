@@ -28,13 +28,13 @@ public class Wood {
 		br.close();
 	}
 	
-	private static int binarySearch(int buttom, int top){
-		int mid = (top+buttom)/2;
+	private static int binarySearch(int bottom, int top){
+		int mid = (top+bottom)/2;
 		long total = getH(mid);
-		if(total == M ){
+		if(total == M || bottom == top){
 			return mid;
 		}
-		else if(buttom >= top-1){
+		else if(bottom == top-1){
 			if(getH(top) > M) return top;
 			else return mid;
 		}
@@ -42,7 +42,7 @@ public class Wood {
 			return binarySearch(mid, top);
 		}
 		else{
-			return binarySearch(buttom, mid-1);
+			return binarySearch(bottom, mid-1);
 		}
 	}
 	private static long getH(int h){
