@@ -31,6 +31,7 @@ public class CentralString {
 	
 	public static class Tree{
 		Node root = null;
+		String cs = null;
 		public Tree(){
 			root = new Node('r');
 		}
@@ -42,6 +43,10 @@ public class CentralString {
 				}
 				prev = prev.children.get(c);
 			}
+		}
+		
+		public void getCentralString(){
+			
 		}
 	}
 	public static class Node{

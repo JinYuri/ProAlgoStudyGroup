@@ -22,7 +22,7 @@ public class Lotto {
 		System.out.printf("%.10f", result);
 		br.close();
 	}
-	
+	// 배열하나 만들어서 caching하는게 나음, 안함 20이상은 stack overflow
 	public static int combination(int n, int r) {
 		if(n == 0) return 0;
 		if(n == r || r == 0) return 1;
